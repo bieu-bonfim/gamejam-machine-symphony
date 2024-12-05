@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +11,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float acceleration;
     float speedMultiplier;
 
-    [Range(0, 2)]
-    [SerializeField] private float jumpForce = 0.8f;
+    [Range(1, 5)]
+    [SerializeField] private float jumpForce = 3f;
     bool buttonPressed;
 
     bool isTouchingWall;
@@ -26,13 +27,16 @@ public class MovementController : MonoBehaviour
 
     
     [SerializeField]
-    private int maxJumpCount = 2;
+    private int extraJumpCount = 1;
     private int jumpCount = 0;
     private bool jumpedOnThisFrame = false;
+
+    Animator animator;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -55,7 +59,11 @@ public class MovementController : MonoBehaviour
         if (isTouchingGround)
         {
             ResetJumps();
+            animator.SetBool("isJumping", !isTouchingGround);
         }
+
+        animator.SetFloat("xVel", Math.Abs(rb.linearVelocity.x));
+        animator.SetFloat("yVel", Math.Abs(rb.linearVelocity.y));
 
         Flip();
         jumpedOnThisFrame = false;
@@ -112,9 +120,11 @@ public class MovementController : MonoBehaviour
         {
             return;
         }
-        if (jumpCount < maxJumpCount && context.started)
+        if (jumpCount < extraJumpCount && context.started)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+            rb.AddForce(Vector2.one * jumpForce, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
             jumpCount++;
             jumpedOnThisFrame = true;
         }
