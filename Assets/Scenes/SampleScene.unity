@@ -317,7 +317,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 2.6
+    OrthographicSize: 1.1
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -490,7 +490,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 2.6
+  orthographic size: 1.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1067,7 +1067,7 @@ MonoBehaviour:
     m_Bits: 256
   groundCheck: {fileID: 1292999587}
   direction: 0
-  extraJumpCount: 1
+  maxJumpCount: 2
 --- !u!95 &1067987537
 Animator:
   serializedVersion: 7

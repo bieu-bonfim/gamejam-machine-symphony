@@ -27,7 +27,7 @@ public class MovementController : MonoBehaviour
 
     
     [SerializeField]
-    private int extraJumpCount = 1;
+    private int maxJumpCount = 2;
     private int jumpCount = 0;
     private bool jumpedOnThisFrame = false;
 
@@ -41,6 +41,8 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        Debug.Log(animator.GetBool("isJumping"));
 
         UpdateSpeedMultiplier();
 
@@ -58,12 +60,15 @@ public class MovementController : MonoBehaviour
 
         if (isTouchingGround)
         {
-            ResetJumps();
-            animator.SetBool("isJumping", !isTouchingGround);
+            if(!jumpedOnThisFrame)
+            {
+                ResetJumps();
+                animator.SetBool("isJumping", false);
+            }
         }
 
         animator.SetFloat("xVel", Math.Abs(rb.linearVelocity.x));
-        animator.SetFloat("yVel", Math.Abs(rb.linearVelocity.y));
+        animator.SetFloat("yVel", rb.linearVelocity.y);
 
         Flip();
         jumpedOnThisFrame = false;
@@ -120,7 +125,7 @@ public class MovementController : MonoBehaviour
         {
             return;
         }
-        if (jumpCount < extraJumpCount && context.started)
+        if (jumpCount < maxJumpCount && context.started)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.one * jumpForce, ForceMode2D.Impulse);
