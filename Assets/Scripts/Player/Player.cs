@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public GameObject deathUI;
     public AudioClip deathSound;
     private AudioSource audioSource;
+    public bool isDead = false;
 
     void Start()
     {
@@ -25,12 +26,14 @@ public class Player : MonoBehaviour
 
     private IEnumerator HandleDeath() {
         deathUI.SetActive(true);
-        audioSource.PlayOneShot(deathSound);
+        // audioSource.PlayOneShot(deathSound);
+        isDead = true;
         yield return new WaitForSeconds(2);
     }
 
     public void Restart() {
         transform.position = startPosition.position;
+        isDead = false;
         deathUI.SetActive(false);
     }
 }
