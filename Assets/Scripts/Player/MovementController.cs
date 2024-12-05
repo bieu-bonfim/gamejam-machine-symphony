@@ -10,7 +10,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float acceleration;
     float speedMultiplier;
 
-    [SerializeField] private float jumpForce = 10f;
+    [Range(0, 2)]
+    [SerializeField] private float jumpForce = 0.8f;
     bool buttonPressed;
 
     bool isTouchingWall;
@@ -27,6 +28,7 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private int maxJumpCount = 2;
     private int jumpCount = 0;
+    private bool jumpedOnThisFrame = false;
 
     void Awake()
     {
@@ -35,6 +37,7 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+
         UpdateSpeedMultiplier();
 
         float targetSpeed = speed * speedMultiplier * direction;
@@ -42,13 +45,20 @@ public class MovementController : MonoBehaviour
         rb.linearVelocity = new Vector2(targetSpeed, rb.linearVelocity.y);
 
         isTouchingWall = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.035f, 0.4f), 0, wallLayer);
+        isTouchingGround = Physics2D.OverlapBox(groundCheck.position, new Vector2(0.16f, 0.02f), 0, groundLayer);
 
         if (isTouchingWall)
         {
-            // touching wall
+            ResetJumps();
+        }
+
+        if (isTouchingGround)
+        {
+            ResetJumps();
         }
 
         Flip();
+        jumpedOnThisFrame = false;
     }
 
     public void Flip()
@@ -76,6 +86,9 @@ public class MovementController : MonoBehaviour
             speedMultiplier = 0;
         }
         direction = context.ReadValue<Vector2>().x;
+        if (direction > 0) direction = 1;
+        if (direction < 0) direction = -1;
+
     }
 
     public void UpdateSpeedMultiplier()
@@ -92,6 +105,24 @@ public class MovementController : MonoBehaviour
                 speedMultiplier = 0;
             }
         }
+    }
+
+    public void Jump(InputAction.CallbackContext context) {
+        if (jumpedOnThisFrame)
+        {
+            return;
+        }
+        if (jumpCount < maxJumpCount && context.started)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpCount++;
+            jumpedOnThisFrame = true;
+        }
+    }
+
+    public void ResetJumps()
+    {
+        jumpCount = 0;
     }
 
 }
