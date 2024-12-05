@@ -33,14 +33,21 @@ public class MovementController : MonoBehaviour
 
     Animator animator;
 
+    Player player;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
         animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
+        if (player.isDead)
+        {
+            return;
+        }
 
         UpdateSpeedMultiplier();
 
