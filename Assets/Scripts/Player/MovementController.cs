@@ -42,8 +42,6 @@ public class MovementController : MonoBehaviour
     void FixedUpdate()
     {
 
-        Debug.Log(animator.GetBool("isJumping"));
-
         UpdateSpeedMultiplier();
 
         float targetSpeed = speed * speedMultiplier * direction;
