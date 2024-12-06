@@ -32,15 +32,18 @@ public class MovementController : MonoBehaviour
     private bool jumpedOnThisFrame = false;
 
     Animator animator;
+    Player player;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
     void FixedUpdate()
     {
+        if (player.isDead) return;
 
         UpdateSpeedMultiplier();
 

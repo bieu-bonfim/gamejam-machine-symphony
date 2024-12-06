@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public AudioClip deathSound;
     private AudioSource audioSource;
 
+    public bool isDead = false;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -26,11 +28,13 @@ public class Player : MonoBehaviour
     private IEnumerator HandleDeath() {
         deathUI.SetActive(true);
         audioSource.PlayOneShot(deathSound);
+        isDead = true;
         yield return new WaitForSeconds(2);
     }
 
     public void Restart() {
         transform.position = startPosition.position;
         deathUI.SetActive(false);
+        isDead = false;
     }
 }
