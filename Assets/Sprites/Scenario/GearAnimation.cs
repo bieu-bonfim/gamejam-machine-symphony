@@ -8,16 +8,12 @@ public class GearAnimation : MonoBehaviour
     public AudioClip rotationSound; // Audio clip to play on rotation
     [SerializeField]
     private int rotationAngle = 45;
+    public AudioSource movementEndSound;
 
-    private AudioSource audioSource;
     private bool isRotating = false;
 
     private void Start()
     {
-        // Initialize the audio source
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        audioSource.clip = rotationSound;
 
         // Start the rhythm logic
         StartCoroutine(RhythmLogic());
@@ -34,12 +30,9 @@ public class GearAnimation : MonoBehaviour
             if (!isRotating)
             {
                 StartCoroutine(SmoothRotate(rotationAngle)); // Rotate 45 degrees
-            }
-
-            // Play the audio
-            if (rotationSound != null)
-            {
-                audioSource.Play();
+                if (movementEndSound != null){
+                    movementEndSound.Play();
+                }
             }
         }
     }
