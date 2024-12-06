@@ -6,7 +6,8 @@ public class MachineMover : MonoBehaviour
     public Vector2 movementAmount = new Vector2(2f, 0f); // Amount to move on the X and Y axis
     public float moveDuration = 1f; // Time to move to the target position
     public float waitDuration = 2f; // Time to wait at the target position before returning
-
+    public AudioSource movementEndSound; // Reference to the AudioSource for the sound
+    private bool soundPlayed = false;
     private Vector2 originalPosition;
 
     private void Start()
@@ -19,34 +20,39 @@ public class MachineMover : MonoBehaviour
     {
         while (true)
         {
-            // Move to the target position
-            yield return StartCoroutine(MoveToPosition(originalPosition + movementAmount, moveDuration));
-            
-            // Wait at the target position
+            yield return StartCoroutine(MoveToPosition(originalPosition + movementAmount, moveDuration, true));
+
             yield return new WaitForSeconds(waitDuration);
-            
-            // Move back to the original position
-            yield return StartCoroutine(MoveToPosition(originalPosition, moveDuration));
-            
-            // Wait again before restarting
+
+            yield return StartCoroutine(MoveToPosition(originalPosition, moveDuration, false));
+
             yield return new WaitForSeconds(waitDuration);
         }
     }
 
-    private IEnumerator MoveToPosition(Vector2 targetPosition, float duration)
+    private IEnumerator MoveToPosition(Vector2 targetPosition, float duration, bool playSound)
     {
         Vector2 startPosition = transform.position;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            // Interpolate position based on elapsed time
+            if (elapsedTime > duration*0.8 && soundPlayed == false && playSound){
+                PlaySound();
+                soundPlayed = true;
+            }
             transform.position = Vector2.Lerp(startPosition, targetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        // Ensure the final position is the target position
         transform.position = targetPosition;
+        soundPlayed = false;
+    }
+
+    private void PlaySound()
+    {
+        movementEndSound.Play();
+
     }
 }
