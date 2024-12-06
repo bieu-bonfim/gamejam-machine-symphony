@@ -6,6 +6,8 @@ public class GearAnimation : MonoBehaviour
     public float interval = 1.0f; // Time between rotations
     public float rotationDuration = 0.5f; // Duration of the smooth rotation
     public AudioClip rotationSound; // Audio clip to play on rotation
+    [SerializeField]
+    private int rotationAngle = 45;
 
     private AudioSource audioSource;
     private bool isRotating = false;
@@ -31,7 +33,7 @@ public class GearAnimation : MonoBehaviour
             // Trigger smooth rotation
             if (!isRotating)
             {
-                StartCoroutine(SmoothRotate(45)); // Rotate 45 degrees
+                StartCoroutine(SmoothRotate(rotationAngle)); // Rotate 45 degrees
             }
 
             // Play the audio
