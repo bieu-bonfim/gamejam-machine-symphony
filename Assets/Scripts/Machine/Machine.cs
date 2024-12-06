@@ -3,7 +3,9 @@ using UnityEngine;
 public class Machine : MonoBehaviour
 {
 
-    IMovementControl movementControl;
+    [SerializeField]
+    private IMovementControl movementControl;
+    public float interval = 1.0f;
 
     void Awake() {
         movementControl = GetComponent<IMovementControl>();
@@ -12,7 +14,7 @@ public class Machine : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        movementControl.Move();
+
     }
 
     // Update is called once per frame
@@ -22,6 +24,6 @@ public class Machine : MonoBehaviour
     }
 
     public void TriggerMachine() {
-
+        movementControl.Move();
     }
 }

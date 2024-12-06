@@ -3,51 +3,58 @@ using System.Collections;
 
 public class PressMovement : MonoBehaviour, IMovementControl
 {
+    [SerializeField]
+    private float movementTime = 0.5f;
+
+    private Transform initialPosition;
 
     [SerializeField]
-    private float interval = 1.0f;
-    [SerializeField]
-    private float movementTime = 1.0f;
-    [SerializeField]
-    private Transform destination;
-    private Transform initialPosition;
+    private Vector2 distance;
 
     private bool isMoving = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        initialPosition = transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        initialPosition = transform;        
     }
 
     public void Move() {
         StartCoroutine(SmoothMove());
     }
-    
-    public void Rewind() {
-
-    }
 
     private IEnumerator SmoothMove()
     {
-
         isMoving = true;
 
-        float elapsedTime = 0.0f;
+        // Calculate the target position
+        Vector2 targetPosition = new Vector2(initialPosition.position.x, initialPosition.position.y + distance.y);
 
+        // Time-based movement (smooth transition)
+        float elapsedTime = 0f;
         while (elapsedTime < movementTime)
         {
-            transform.position = Vector3.Lerp(initialPosition.position, destination.position, elapsedTime / movementTime);
+            transform.position = Vector2.Lerp(initialPosition.position, targetPosition, elapsedTime / movementTime);
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // Final position to avoid any potential floating point inaccuracies
+        transform.position = targetPosition;
+
+        // Optionally, you can reverse the movement here if you want a back-and-forth animation, or call another function
+        yield return new WaitForSeconds(0.5f); // Small pause before moving back (if needed)
+
+        // Reset position or move back (based on your logic)
+        targetPosition = initialPosition.position;
+        elapsedTime = 0f;
+        while (elapsedTime < movementTime)
+        {
+            transform.position = Vector2.Lerp(transform.position, targetPosition, elapsedTime / movementTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = destination.position;
+        transform.position = initialPosition.position; // Ensure the final position is set back to the start
+        isMoving = false;
     }
 }
