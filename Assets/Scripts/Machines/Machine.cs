@@ -1,16 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class Machine : MonoBehaviour
 {
     public AudioClip attackSound;  
-    public Animator animator;     
     private AudioSource audioSource;
+    private PressMovement pressMovement;
 
     private bool attackTriggered = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        pressMovement = GetComponent<PressMovement>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -27,13 +29,18 @@ public class Machine : MonoBehaviour
             audioSource.Play();
         }
 
-        // Trigger attack animation
-        if (animator != null)
-        {
-            animator.SetTrigger("Attack");
-            attackTriggered = true;
-        }
-
+        pressMovement.MoveDown();
+        attackTriggered = true;
+        StartCoroutine(LiftMachine());
         Debug.Log($"{gameObject.name} activated!");
+    }
+
+    private IEnumerator LiftMachine()
+    {
+        // Wait for 1 second (or any other time you choose)
+        yield return new WaitForSeconds(1f);
+
+        // Move the press back up after the delay
+        pressMovement.MoveUp();
     }
 }

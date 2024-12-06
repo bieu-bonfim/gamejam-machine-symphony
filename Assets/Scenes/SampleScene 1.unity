@@ -2802,6 +2802,8 @@ GameObject:
   - component: {fileID: 434012859}
   - component: {fileID: 434012858}
   - component: {fileID: 434012857}
+  - component: {fileID: 434012862}
+  - component: {fileID: 434012861}
   m_Layer: 5
   m_Name: DeathCanvas
   m_TagString: Untagged
@@ -2894,6 +2896,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &434012861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434012856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad9948ec6da79543991f559070b803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  targetYPosition: -5
+--- !u!114 &434012862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434012856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad9948ec6da79543991f559070b803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  targetYPosition: -5
 --- !u!1 &472987449
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,7 +3099,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!1 &477437469
 GameObject:
   m_ObjectHideFlags: 0
@@ -8086,6 +8115,7 @@ GameObject:
   - component: {fileID: 1212211120}
   - component: {fileID: 1212211119}
   - component: {fileID: 1212211121}
+  - component: {fileID: 1212211122}
   m_Layer: 0
   m_Name: press2
   m_TagString: Untagged
@@ -8234,7 +8264,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 0}
-  animator: {fileID: 0}
+--- !u!114 &1212211122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212211116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad9948ec6da79543991f559070b803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  targetYPosition: -5
 --- !u!1 &1214310539
 GameObject:
   m_ObjectHideFlags: 0
@@ -11102,6 +11145,7 @@ GameObject:
   - component: {fileID: 1774923657}
   - component: {fileID: 1774923656}
   - component: {fileID: 1774923659}
+  - component: {fileID: 1774923660}
   m_Layer: 0
   m_Name: press1
   m_TagString: Untagged
@@ -11250,7 +11294,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 0}
-  animator: {fileID: 0}
+--- !u!114 &1774923660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774923653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad9948ec6da79543991f559070b803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  targetYPosition: -5
 --- !u!1 &1826841581
 GameObject:
   m_ObjectHideFlags: 0
@@ -12339,6 +12396,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1625577039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2005843726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005843727}
+  m_Layer: 0
+  m_Name: PressBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2005843727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005843726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.69606, y: 3.447, z: -0.008539404}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2031636722
 GameObject:
   m_ObjectHideFlags: 0
@@ -12352,6 +12440,7 @@ GameObject:
   - component: {fileID: 2031636726}
   - component: {fileID: 2031636725}
   - component: {fileID: 2031636727}
+  - component: {fileID: 2031636728}
   m_Layer: 0
   m_Name: clawpress1
   m_TagString: Untagged
@@ -12500,7 +12589,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSound: {fileID: 0}
-  animator: {fileID: 0}
+--- !u!114 &2031636728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031636722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad9948ec6da79543991f559070b803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  targetYPosition: -5
 --- !u!1 &2040402875
 GameObject:
   m_ObjectHideFlags: 0
@@ -13000,3 +13102,4 @@ SceneRoots:
   - {fileID: 763555601}
   - {fileID: 1316911687}
   - {fileID: 1287463419}
+  - {fileID: 2005843727}
